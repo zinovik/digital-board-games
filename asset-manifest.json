@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.073c9b0a.css",
-    "main.js": "/static/js/main.13f7c12c.js",
-    "static/js/787.21fdb29f.chunk.js": "/static/js/787.21fdb29f.chunk.js",
-    "index.html": "/index.html",
-    "main.073c9b0a.css.map": "/static/css/main.073c9b0a.css.map",
-    "main.13f7c12c.js.map": "/static/js/main.13f7c12c.js.map",
-    "787.21fdb29f.chunk.js.map": "/static/js/787.21fdb29f.chunk.js.map"
+    "main.css": "/digital-board-games/static/css/main.073c9b0a.css",
+    "main.js": "/digital-board-games/static/js/main.49cd7cc3.js",
+    "static/js/787.21fdb29f.chunk.js": "/digital-board-games/static/js/787.21fdb29f.chunk.js",
+    "index.html": "/digital-board-games/index.html",
+    "main.073c9b0a.css.map": "/digital-board-games/static/css/main.073c9b0a.css.map",
+    "main.49cd7cc3.js.map": "/digital-board-games/static/js/main.49cd7cc3.js.map",
+    "787.21fdb29f.chunk.js.map": "/digital-board-games/static/js/787.21fdb29f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.13f7c12c.js"
+    "static/js/main.49cd7cc3.js"
   ]
 }
