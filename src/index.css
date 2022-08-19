@@ -11,3 +11,35 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.row {
+  display: flex;
+  flex-direction: row;
+  /* &:nth-child(2n): red; */
+}
+
+.table {
+  max-width: 50rem;
+}
+
+.header {
+  position: sticky;
+  font-weight: bold;
+}
+
+.cell {
+  padding: 1px;
+}
+
+.rank {
+  width: 58px;
+}
+
+.game {
+  flex-grow: 100;
+  flex-shrink: 100;
+}
+
+.sites {
+  display: flex;
+}
