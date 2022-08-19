@@ -1,15 +1,21 @@
 {
   "files": {
-    "main.css": "/digital-board-games/static/css/main.073c9b0a.css",
-    "main.js": "/digital-board-games/static/js/main.49cd7cc3.js",
+    "main.css": "/digital-board-games/static/css/main.6490b6b3.css",
+    "main.js": "/digital-board-games/static/js/main.1b2c0791.js",
     "static/js/787.21fdb29f.chunk.js": "/digital-board-games/static/js/787.21fdb29f.chunk.js",
+    "static/media/boargamearena.jpg": "/digital-board-games/static/media/boargamearena.1d0b1f2fab51e56db0ca.jpg",
+    "static/media/web.webp": "/digital-board-games/static/media/web.12ba0a9c44e0f66182d6.webp",
+    "static/media/boiteajeux.jpg": "/digital-board-games/static/media/boiteajeux.7dc5c27c60f77682c7ed.jpg",
+    "static/media/steam.png": "/digital-board-games/static/media/steam.9e14748e421ddcf58bf4.png",
+    "static/media/happymeeple.png": "/digital-board-games/static/media/happymeeple.339398ffcea600280215.png",
+    "static/media/android.svg": "/digital-board-games/static/media/android.0eff42feada63d2828fb8749d53775a1.svg",
     "index.html": "/digital-board-games/index.html",
-    "main.073c9b0a.css.map": "/digital-board-games/static/css/main.073c9b0a.css.map",
-    "main.49cd7cc3.js.map": "/digital-board-games/static/js/main.49cd7cc3.js.map",
+    "main.6490b6b3.css.map": "/digital-board-games/static/css/main.6490b6b3.css.map",
+    "main.1b2c0791.js.map": "/digital-board-games/static/js/main.1b2c0791.js.map",
     "787.21fdb29f.chunk.js.map": "/digital-board-games/static/js/787.21fdb29f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.49cd7cc3.js"
+    "static/css/main.6490b6b3.css",
+    "static/js/main.1b2c0791.js"
   ]
 }
