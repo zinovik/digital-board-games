@@ -4,12 +4,15 @@ import { Game } from '../types/game';
 import { siteConfigs, SiteTitle } from './site-configs';
 import { FilterState } from '../types/filter-state';
 
+const NAME_ID_SEPARATOR = '|';
+
 export const getGamesData = async (
   filter: FilterState,
   isForceUpdate?: boolean
 ): Promise<{
   ranks: number;
   games: Game[];
+  date: string;
 }> => {
   const [bggGamesRanks, digitalBoardGames] = await Promise.all([
     getBGGGamesRanks(isForceUpdate),
@@ -17,16 +20,21 @@ export const getGamesData = async (
   ]);
 
   const games: Game[] = Object.entries(digitalBoardGames)
-    .map(
-      ([name, sites]): Game => ({
-        rank:
-          Number(
-            bggGamesRanks.games.find((bggGame) => bggGame.name === name)?.rank
-          ) || 0,
+    .map(([name, sites]): Game => {
+      const bggGame = bggGamesRanks.games.find((bggGame) =>
+        name.includes(NAME_ID_SEPARATOR)
+          ? bggGame.id === name.slice(name.indexOf(NAME_ID_SEPARATOR) + 1)
+          : bggGame.name === name
+      );
+
+      return {
+        rank: Number(bggGame?.rank) || 0,
         name,
         sites: sites.filter((site) => filter.sites[getSiteData(site).title]),
-      })
-    )
+        year: bggGame?.year,
+        id: bggGame?.id,
+      };
+    })
     .sort(({ rank: rank1, name: name1 }, { rank: rank2, name: name2 }) => {
       if (!rank1 && !rank2) return name1.localeCompare(name2);
       if (!rank1) return 1;
@@ -40,6 +48,7 @@ export const getGamesData = async (
     games: filter.isWithoutImplementation
       ? games
       : games.filter((game) => game.sites.length > 0),
+    date: bggGamesRanks.date,
   };
 };
 

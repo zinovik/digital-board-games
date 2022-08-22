@@ -1,4 +1,3 @@
-import React from 'react';
 import { siteConfigs, SiteTitle } from '../services/site-configs';
 import { FilterState, SitesFilter } from '../types/filter-state';
 import { Icon } from './Icon';
@@ -31,7 +30,7 @@ export const Filter = ({ filter, setFilter }: Props) => {
     });
   };
 
-  const handleSiteChange = (title: SiteTitle) => {
+  const handleSiteChange = (title: SiteTitle) =>
     setFilter({
       sites: {
         ...sites,
@@ -39,14 +38,12 @@ export const Filter = ({ filter, setFilter }: Props) => {
       },
       isWithoutImplementation,
     });
-  };
 
-  const handleIsWithoutImplementationChange = () => {
+  const handleIsWithoutImplementationChange = () =>
     setFilter({ sites, isWithoutImplementation: !isWithoutImplementation });
-  };
 
   return (
-    <>
+    <div style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem' }}>
       <input
         type="checkbox"
         id={ALL}
@@ -77,6 +74,6 @@ export const Filter = ({ filter, setFilter }: Props) => {
         checked={isWithoutImplementation}
       />
       <label htmlFor={WITHOUT_IMPLEMENTATION}>{WITHOUT_IMPLEMENTATION}</label>
-    </>
+    </div>
   );
 };

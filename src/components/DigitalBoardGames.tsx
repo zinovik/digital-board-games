@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Filter } from './Filter';
+import { Ranks } from './Ranks';
 import { Games } from './Games';
 import { getGamesData } from '../services';
 import { siteTitles } from '../services/site-configs';
@@ -7,9 +8,14 @@ import { Game } from '../types/game';
 import { SitesFilter } from '../types/filter-state';
 
 export const DigitalBoardGames = () => {
-  const [gamesData, setGamesData] = useState({ ranks: 0, games: [] } as {
+  const [gamesData, setGamesData] = useState({
+    ranks: 0,
+    games: [],
+    date: '',
+  } as {
     ranks: number;
     games: Game[];
+    date: string;
   });
   const [filter, setFilter] = useState({
     sites: siteTitles.reduce(
@@ -18,29 +24,27 @@ export const DigitalBoardGames = () => {
     ),
     isWithoutImplementation: true,
   });
-  const [isUpdating, setIsUpdating] = useState(false);
 
   useEffect(() => {
     getGamesData(filter).then((result) => setGamesData(result));
   }, [filter]);
 
-  const { games, ranks } = gamesData;
+  const { games, ranks, date } = gamesData;
 
-  const handleUpdateClick = () => {
-    setIsUpdating(true);
+  const handleUpdateClick = async () =>
     getGamesData(filter, true).then((result) => {
       setGamesData(result);
-      setIsUpdating(false);
     });
-  };
+
+  if (gamesData.ranks === 0) return <>Loading...</>;
 
   return (
-    <>
+    <main>
       <Filter filter={filter} setFilter={setFilter} />
+
+      <Ranks date={date} update={handleUpdateClick} />
+
       <Games games={games} ranks={ranks} />
-      <button onClick={handleUpdateClick} disabled={isUpdating}>
-        {isUpdating ? 'Updating, please wait...' : 'Update ranks'}
-      </button>
-    </>
+    </main>
   );
 };

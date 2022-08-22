@@ -1,4 +1,3 @@
-import React from 'react';
 import { Icon } from './Icon';
 import { getSiteData } from '../services/index';
 
