@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const BGG_GAMES_RANKS_URL =
-  'https://bgg-games-ranks-zinovik.vercel.app/api/get-games?amount=2000';
+  'https://bgg-games-ranks.vercel.app/api/get-games?amount=2000';
 const BGG_GAMES_RANKS_FORCE_UPDATE_URL = `${BGG_GAMES_RANKS_URL}&load`;
 
 interface BGGGamesRanksData {
