@@ -21,15 +21,16 @@ export const getGamesData = async (
 
   const games: Game[] = Object.entries(digitalBoardGames)
     .map(([name, sites]): Game => {
+      const separatorIndex = name.indexOf(NAME_ID_SEPARATOR);
       const bggGame = bggGamesRanks.games.find((bggGame) =>
-        name.includes(NAME_ID_SEPARATOR)
-          ? bggGame.id === name.slice(name.indexOf(NAME_ID_SEPARATOR) + 1)
+        separatorIndex !== -1
+          ? bggGame.id === name.slice(separatorIndex + 1)
           : bggGame.name === name
       );
 
       return {
         rank: Number(bggGame?.rank) || 0,
-        name,
+        name: separatorIndex !== -1 ? name.slice(0, separatorIndex) : name,
         sites: sites.filter((site) => filter.sites[getSiteData(site).title]),
         year: bggGame?.year,
         id: bggGame?.id,
