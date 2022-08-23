@@ -24,7 +24,7 @@ export const Games = ({ ranks, games }: Props) => (
             }`}
             target="_blank"
             rel="noreferrer"
-          >{`${game.name}${game.year ? `(${game.year})` : ''}`}</a>
+          >{`${game.name}${game.year ? ` (${game.year})` : ''}`}</a>
         </div>
         <div className="cell sites">
           {game.sites.map((site) => (
