@@ -16,10 +16,12 @@ export const Ranks = ({ date, update }: Props) => {
   };
 
   return (
-    <div style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem' }}>
+    <div style={{ padding: '0.2rem' }}>
       Ranks updated: {new Date(date).toLocaleString()}{' '}
       <button onClick={handleUpdateClick} disabled={isUpdating}>
-        {isUpdating ? 'Updating, please wait...' : 'Update ranks from boardgamegeek.com'}
+        {isUpdating
+          ? 'Updating, please wait...'
+          : 'Update ranks from boardgamegeek.com'}
       </button>
     </div>
   );
