@@ -36,7 +36,7 @@ export const DigitalBoardGames = () => {
       setGamesData(result);
     });
 
-  if (gamesData.ranks === 0) return <>⏳ Loading...</>;
+  if (gamesData.ranks === 0) return <main>⏳ Loading...</main>;
 
   return (
     <main>
