@@ -1,11 +1,12 @@
-import React from 'react';
 import { DigitalBoardGames } from './components/DigitalBoardGames';
+import { BackToTop } from './components/BackToTop';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
       <DigitalBoardGames />
+      <BackToTop />
     </div>
   );
 }
