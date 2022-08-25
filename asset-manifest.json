@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/digital-board-games/static/css/main.63ab05c4.css",
-    "main.js": "/digital-board-games/static/js/main.b6439fe5.js",
+    "main.js": "/digital-board-games/static/js/main.433f8984.js",
     "static/js/787.21fdb29f.chunk.js": "/digital-board-games/static/js/787.21fdb29f.chunk.js",
     "static/media/boargamearena.jpg": "/digital-board-games/static/media/boargamearena.1d0b1f2fab51e56db0ca.jpg",
     "static/media/web.webp": "/digital-board-games/static/media/web.12ba0a9c44e0f66182d6.webp",
@@ -11,11 +11,11 @@
     "static/media/android.svg": "/digital-board-games/static/media/android.0eff42feada63d2828fb8749d53775a1.svg",
     "index.html": "/digital-board-games/index.html",
     "main.63ab05c4.css.map": "/digital-board-games/static/css/main.63ab05c4.css.map",
-    "main.b6439fe5.js.map": "/digital-board-games/static/js/main.b6439fe5.js.map",
+    "main.433f8984.js.map": "/digital-board-games/static/js/main.433f8984.js.map",
     "787.21fdb29f.chunk.js.map": "/digital-board-games/static/js/787.21fdb29f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.63ab05c4.css",
-    "static/js/main.b6439fe5.js"
+    "static/js/main.433f8984.js"
   ]
 }
