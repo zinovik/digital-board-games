@@ -1,6 +1,5 @@
 import { DigitalBoardGames } from './components/DigitalBoardGames';
 import { BackToTop } from './components/BackToTop';
-import './App.css';
 
 function App() {
   return (
