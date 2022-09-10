@@ -1,8 +1,9 @@
 import axios from 'axios';
 
-const BGG_GAMES_RANKS_URL =
+const BGG_GAMES_RANKS_STATIC =
+  'https://raw.githubusercontent.com/zinovik/bgg-games-ranks-data/main/bgg-games-ranks.json';
+const BGG_GAMES_RANKS_FUNCTION =
   'https://bgg-games-ranks.vercel.app/api/get-games?amount=2000';
-const BGG_GAMES_RANKS_FORCE_UPDATE_URL = `${BGG_GAMES_RANKS_URL}&load`;
 
 interface BGGGamesRanksData {
   date: string;
@@ -21,7 +22,7 @@ let loadedBGGGamesRanks: BGGGamesRanksData = {
 
 const loadBGGGamesRanks = async (isForceUpdate?: boolean): Promise<void> => {
   const response = await axios.get<BGGGamesRanksData>(
-    isForceUpdate ? BGG_GAMES_RANKS_FORCE_UPDATE_URL : BGG_GAMES_RANKS_URL
+    isForceUpdate ? BGG_GAMES_RANKS_FUNCTION : BGG_GAMES_RANKS_STATIC
   );
 
   loadedBGGGamesRanks = response.data;
