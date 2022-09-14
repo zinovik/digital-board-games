@@ -1,9 +1,5 @@
 import axios from 'axios';
-
-const BGG_GAMES_RANKS_STATIC =
-  'https://raw.githubusercontent.com/zinovik/bgg-games-ranks-data/main/bgg-games-ranks.json';
-const BGG_GAMES_RANKS_FUNCTION =
-  'https://bgg-games-ranks.vercel.app/api/get-games?amount=2000';
+import { BGG_GAMES_RANKS_STATIC, BGG_GAMES_RANKS_FUNCTION } from '../constants';
 
 interface BGGGamesRanksData {
   date: string;

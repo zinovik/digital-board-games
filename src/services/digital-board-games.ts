@@ -1,7 +1,5 @@
 import axios from 'axios';
-
-const DIGITAL_BOARD_GAMES_URL =
-  'https://raw.githubusercontent.com/zinovik/digital-board-games-data/main/digital-board-games.json';
+import { DIGITAL_BOARD_GAMES_URL } from '../constants';
 
 export interface DigitalBoardGamesData {
   [name: string]: string[];
