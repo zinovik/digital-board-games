@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { DIGITAL_BOARD_GAMES_URL } from '../constants';
 
 export interface DigitalBoardGamesData {
@@ -8,11 +7,9 @@ export interface DigitalBoardGamesData {
 let loadedDigitalBoardGames: DigitalBoardGamesData = {};
 
 const loadDigitalBoardGames = async (): Promise<void> => {
-  const response = await axios.get<DigitalBoardGamesData>(
-    DIGITAL_BOARD_GAMES_URL
-  );
+  const response = await fetch(DIGITAL_BOARD_GAMES_URL);
 
-  loadedDigitalBoardGames = response.data;
+  loadedDigitalBoardGames = await response.json();
 };
 
 export const getDigitalBoardGames =

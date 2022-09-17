@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { BGG_GAMES_RANKS_STATIC, BGG_GAMES_RANKS_FUNCTION } from '../constants';
 
 interface BGGGamesRanksData {
@@ -17,11 +16,11 @@ let loadedBGGGamesRanks: BGGGamesRanksData = {
 };
 
 const loadBGGGamesRanks = async (isForceUpdate?: boolean): Promise<void> => {
-  const response = await axios.get<BGGGamesRanksData>(
+  const response = await fetch(
     isForceUpdate ? BGG_GAMES_RANKS_FUNCTION : BGG_GAMES_RANKS_STATIC
   );
 
-  loadedBGGGamesRanks = response.data;
+  loadedBGGGamesRanks = await response.json();
 };
 
 export const getBGGGamesRanks = async (
