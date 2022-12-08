@@ -12,73 +12,91 @@ import steamIcon from '../icons/steam.png';
 import desktopIcon from '../icons/desktop.png';
 import webIcon from '../icons/web.webp';
 
+export const ALL = 'All';
+export const WITHOUT_IMPLEMENTATION = 'Without Implementation';
+export const WITHOUT_IMPLEMENTATION_ID = 'wi';
+
 export const siteConfigs = [
   {
     title: 'Board Game Arena',
     urlParts: ['boardgamearena.com'],
     icon: boargamearenaIcon,
+    id: 'ba',
   },
   {
     title: 'Yucata',
     urlParts: ['yucata.de'],
     icon: yucataIcon,
+    id: 'yu',
   },
   {
     title: 'Boite a Jeux',
     urlParts: ['boiteajeux.net'],
     icon: boiteajeuxIcon,
+    id: 'bj',
   },
   {
     title: 'Mattle',
     urlParts: ['mattle.online'],
     icon: mattleIcon,
+    id: 'ma',
   },
   {
     title: 'Brettspiel Welt',
     urlParts: ['brettspielwelt.de'],
     icon: brettspielweltIcon,
+    id: 'bw',
   },
   {
     title: 'Happy Meeple',
     urlParts: ['happymeeple.com'],
     icon: happyMeeple,
+    id: 'hm',
   },
   {
     title: 'Tabletopia',
     urlParts: ['tabletopia.com'],
     icon: tabletopiaIcon,
+    id: 'tt',
   },
   {
     title: 'Tabletop Simulator',
     urlParts: ['/Tabletop_Simulator__', 'steamcommunity.com/sharedfiles'],
     icon: tabletopSimulatorIcon,
+    id: 'ts',
   },
   {
     title: 'Android',
     urlParts: ['play.google.com'],
     icon: androidIcon,
+    id: 'an',
   },
   {
     title: 'iOS',
     urlParts: ['apps.apple.com'],
     icon: iosIcon,
+    id: 'io',
   },
   {
     title: 'Steam',
     urlParts: ['store.steampowered.com'],
     icon: steamIcon,
+    id: 'st',
   },
   {
     title: 'Desktop',
     urlParts: ['keldon.net', 'lantsev1981.pro', 'boardgamegeek.com/guild/1733'],
     icon: desktopIcon,
+    id: 'de',
   },
   {
     title: 'Web',
     urlParts: ['http'],
     icon: webIcon,
+    id: 'we',
   },
 ] as const;
 
-export const siteTitles = siteConfigs.map(({ title }) => title);
+const siteTitles = siteConfigs.map(({ title }) => title);
+
 export type SiteTitle = typeof siteTitles[number];

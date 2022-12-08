@@ -3,9 +3,42 @@ import { Filter } from './Filter';
 import { Ranks } from './Ranks';
 import { Games } from './Games';
 import { getGamesData } from '../services';
-import { siteTitles } from '../services/site-configs';
+import {
+  siteConfigs,
+  WITHOUT_IMPLEMENTATION_ID,
+} from '../services/site-configs';
 import { Game } from '../types/game';
-import { SitesFilter } from '../types/filter-state';
+import { FilterState, SitesFilter } from '../types/filter-state';
+
+const SEARCH_CONFIG_NAME = '?sites=';
+
+const initialSearchConfig = [
+  ...siteConfigs.map((siteConfig) => siteConfig.id),
+  WITHOUT_IMPLEMENTATION_ID,
+].join(',');
+
+const searchConfigToFilter = (search: string): FilterState => {
+  const sites = search.split(',');
+
+  return {
+    sites: siteConfigs.reduce(
+      (acc, config) => ({
+        ...acc,
+        [config.title]: sites.includes(config.id),
+      }),
+      {} as SitesFilter
+    ),
+    isWithoutImplementation: sites.includes(WITHOUT_IMPLEMENTATION_ID),
+  };
+};
+
+const filterToSearchConfig = (filterState: FilterState): string =>
+  [
+    ...siteConfigs
+      .filter((siteConfig) => filterState.sites[siteConfig.title])
+      .map((siteConfigs) => siteConfigs.id),
+    ...(filterState.isWithoutImplementation ? [WITHOUT_IMPLEMENTATION_ID] : []),
+  ].join(',');
 
 export const DigitalBoardGames = () => {
   const [gamesData, setGamesData] = useState({
@@ -17,19 +50,30 @@ export const DigitalBoardGames = () => {
     games: Game[];
     date: string;
   });
-  const [filter, setFilter] = useState({
-    sites: siteTitles.reduce(
-      (acc, title) => ({ ...acc, [title]: true }),
-      {} as SitesFilter
-    ),
-    isWithoutImplementation: true,
-  });
+
+  const [filter, setFilter] = useState(
+    searchConfigToFilter(
+      window.location.search.includes(SEARCH_CONFIG_NAME)
+        ? window.location.search.replace(SEARCH_CONFIG_NAME, '')
+        : initialSearchConfig
+    )
+  );
 
   useEffect(() => {
     getGamesData(filter).then((result) => setGamesData(result));
   }, [filter]);
 
   const { games, ranks, date } = gamesData;
+
+  const handleSetFilter = (filter: FilterState) => {
+    window.history.pushState(
+      {},
+      '',
+      `${SEARCH_CONFIG_NAME}${filterToSearchConfig(filter)}`
+    );
+
+    setFilter(filter);
+  };
 
   const handleUpdateClick = async () =>
     getGamesData(filter, true).then((result) => {
@@ -40,7 +84,7 @@ export const DigitalBoardGames = () => {
 
   return (
     <main>
-      <Filter filter={filter} setFilter={setFilter} />
+      <Filter filter={filter} setFilter={handleSetFilter} />
 
       <Ranks date={date} update={handleUpdateClick} />
 

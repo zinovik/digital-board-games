@@ -1,9 +1,11 @@
-import { siteConfigs, SiteTitle } from '../services/site-configs';
+import {
+  siteConfigs,
+  SiteTitle,
+  ALL,
+  WITHOUT_IMPLEMENTATION,
+} from '../services/site-configs';
 import { FilterState, SitesFilter } from '../types/filter-state';
 import { Icon } from './Icon';
-
-const ALL = 'All';
-const WITHOUT_IMPLEMENTATION = 'Without Implementation';
 
 interface Props {
   filter: FilterState;
