@@ -32,13 +32,16 @@ const searchConfigToFilter = (search: string): FilterState => {
   };
 };
 
-const filterToSearchConfig = (filterState: FilterState): string =>
-  [
+const filterToSearchConfig = (filterState: FilterState): string => {
+  const searchConfig = [
     ...siteConfigs
       .filter((siteConfig) => filterState.sites[siteConfig.title])
       .map((siteConfigs) => siteConfigs.id),
     ...(filterState.isWithoutImplementation ? [WITHOUT_IMPLEMENTATION_ID] : []),
   ].join(',');
+
+  return searchConfig === initialSearchConfig ? '' : searchConfig;
+};
 
 export const DigitalBoardGames = () => {
   const [gamesData, setGamesData] = useState({
@@ -69,7 +72,9 @@ export const DigitalBoardGames = () => {
     window.history.pushState(
       {},
       '',
-      `${SEARCH_CONFIG_NAME}${filterToSearchConfig(filter)}`
+      filterToSearchConfig(filter)
+        ? `${SEARCH_CONFIG_NAME}${filterToSearchConfig(filter)}`
+        : '/'
     );
 
     setFilter(filter);
