@@ -74,7 +74,7 @@ export const DigitalBoardGames = () => {
       '',
       filterToSearchConfig(filter)
         ? `${SEARCH_CONFIG_NAME}${filterToSearchConfig(filter)}`
-        : '/'
+        : '/digital-board-games'
     );
 
     setFilter(filter);
