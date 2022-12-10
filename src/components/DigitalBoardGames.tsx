@@ -32,7 +32,7 @@ const searchConfigToFilter = (search: string): FilterState => {
   };
 };
 
-const filterToSearchConfig = (filterState: FilterState): string => {
+const filterToSearchConfig = (filterState: FilterState): string | null => {
   const searchConfig = [
     ...siteConfigs
       .filter((siteConfig) => filterState.sites[siteConfig.title])
@@ -40,7 +40,7 @@ const filterToSearchConfig = (filterState: FilterState): string => {
     ...(filterState.isWithoutImplementation ? [WITHOUT_IMPLEMENTATION_ID] : []),
   ].join(',');
 
-  return searchConfig === initialSearchConfig ? '' : searchConfig;
+  return searchConfig === initialSearchConfig ? null : searchConfig;
 };
 
 export const DigitalBoardGames = () => {
@@ -72,7 +72,7 @@ export const DigitalBoardGames = () => {
     window.history.pushState(
       {},
       '',
-      filterToSearchConfig(filter)
+      filterToSearchConfig(filter) !== null
         ? `${SEARCH_CONFIG_NAME}${filterToSearchConfig(filter)}`
         : '/digital-board-games'
     );
