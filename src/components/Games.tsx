@@ -15,7 +15,7 @@ export const Games = ({ ranks, games }: Props) => (
     </div>
 
     {games.map((game) => (
-      <div className="row">
+      <div className="row" key={`${game.name}${game.id}`}>
         <div className="cell rank">{game.rank || `${ranks}+`}</div>
         <div className="cell game">
           <a
@@ -28,7 +28,7 @@ export const Games = ({ ranks, games }: Props) => (
         </div>
         <div className="cell sites">
           {game.sites.map((site) => (
-            <SiteLink site={site} />
+            <SiteLink site={site} key={site} />
           ))}
         </div>
       </div>

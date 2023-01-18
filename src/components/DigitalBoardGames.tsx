@@ -12,10 +12,9 @@ import { FilterState, SitesFilter } from '../types/filter-state';
 
 const SEARCH_CONFIG_NAME = '?sites=';
 
-const initialSearchConfig = [
-  ...siteConfigs.map((siteConfig) => siteConfig.id),
-  WITHOUT_IMPLEMENTATION_ID,
-].join(',');
+const initialSearchConfig = siteConfigs
+  .map((siteConfig) => siteConfig.id)
+  .join(',');
 
 const searchConfigToFilter = (search: string): FilterState => {
   const sites = search.split(',');

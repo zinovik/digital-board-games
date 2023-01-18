@@ -1,10 +1,46 @@
-import { getBGGGamesRanks } from './bgg-games-ranks';
-import { getDigitalBoardGames } from './digital-board-games';
+import { BGGGame, getBGGGamesRanks } from './bgg-games-ranks';
+import { getDigitalBoardGames, NAME_ID_SEPARATOR } from './digital-board-games';
 import { Game } from '../types/game';
 import { siteConfigs, SiteTitle } from './site-configs';
 import { FilterState } from '../types/filter-state';
 
-const NAME_ID_SEPARATOR = '|';
+const getNameAndId = (fullName: string): [string, string | undefined] => {
+  const [name, id] = fullName.split(NAME_ID_SEPARATOR);
+
+  return name ? [name, id] : ['', undefined];
+};
+
+const isSameGame = (
+  bggGame: { id?: string; name: string },
+  name: string,
+  id: string | undefined
+) => (id ? bggGame.id === id : bggGame.name === name);
+
+const sortByRank = (
+  { rank: rank1, name: name1 }: { rank: number; name: string },
+  { rank: rank2, name: name2 }: { rank: number; name: string }
+) => {
+  if (!rank1 && !rank2) return name1.localeCompare(name2);
+  if (!rank1) return 1;
+  if (!rank2) return -1;
+
+  return rank1 - rank2;
+};
+
+const mergeGames = (bggGames: BGGGame[], games: Game[]) =>
+  bggGames.reduce(
+    (acc, bggGame) =>
+      acc.some(({ name, id }) => isSameGame(bggGame, name, id))
+        ? acc
+        : [
+            ...acc,
+            {
+              ...bggGame,
+              sites: [],
+            },
+          ],
+    games
+  );
 
 export const getGamesData = async (
   filter: FilterState,
@@ -19,36 +55,31 @@ export const getGamesData = async (
     getDigitalBoardGames(),
   ]);
 
-  const games: Game[] = Object.entries(digitalBoardGames)
-    .map(([name, sites]): Game => {
-      const separatorIndex = name.indexOf(NAME_ID_SEPARATOR);
+  const digitalGames: Game[] = Object.entries(digitalBoardGames).map(
+    ([key, value]): Game => {
+      const [name, id] = getNameAndId(key);
+      const sites = value.filter(
+        (site) => filter.sites[getSiteData(site).title]
+      );
+
       const bggGame = bggGamesRanks.games.find((bggGame) =>
-        separatorIndex !== -1
-          ? bggGame.id === name.slice(separatorIndex + 1)
-          : bggGame.name === name
+        isSameGame(bggGame, name, id)
       );
 
       return {
-        rank: Number(bggGame?.rank) || 0,
-        name: separatorIndex !== -1 ? name.slice(0, separatorIndex) : name,
-        sites: sites.filter((site) => filter.sites[getSiteData(site).title]),
-        year: bggGame?.year,
-        id: bggGame?.id,
+        ...(bggGame ? bggGame : { rank: 0, name, id }),
+        sites,
       };
-    })
-    .sort(({ rank: rank1, name: name1 }, { rank: rank2, name: name2 }) => {
-      if (!rank1 && !rank2) return name1.localeCompare(name2);
-      if (!rank1) return 1;
-      if (!rank2) return -1;
+    }
+  );
 
-      return rank1 - rank2;
-    });
+  const games = filter.isWithoutImplementation
+    ? mergeGames(bggGamesRanks.games, digitalGames)
+    : digitalGames;
 
   return {
     ranks: bggGamesRanks.games.length,
-    games: filter.isWithoutImplementation
-      ? games
-      : games.filter((game) => game.sites.length > 0),
+    games: games.sort(sortByRank),
     date: bggGamesRanks.date,
   };
 };

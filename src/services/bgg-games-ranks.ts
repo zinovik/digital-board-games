@@ -1,13 +1,15 @@
 import { BGG_GAMES_RANKS_STATIC, BGG_GAMES_RANKS_FUNCTION } from '../constants';
 
+export interface BGGGame {
+  rank: number;
+  name: string;
+  year: string;
+  id: string;
+}
+
 interface BGGGamesRanksData {
   date: string;
-  games: {
-    rank: number;
-    name: string;
-    year: string;
-    id: string;
-  }[];
+  games: BGGGame[];
 }
 
 let loadedBGGGamesRanks: BGGGamesRanksData = {

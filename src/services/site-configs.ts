@@ -5,7 +5,6 @@ import mattleIcon from '../icons/mattle.png';
 import brettspielweltIcon from '../icons/brettspielwelt.jpg';
 import happyMeeple from '../icons/happymeeple.png';
 import tabletopiaIcon from '../icons/tabletopia.png';
-import tabletopSimulatorIcon from '../icons/tabletopsimulator.png';
 import androidIcon from '../icons/android.svg';
 import iosIcon from '../icons/ios.png';
 import steamIcon from '../icons/steam.png';
@@ -58,12 +57,6 @@ export const siteConfigs = [
     urlParts: ['tabletopia.com'],
     icon: tabletopiaIcon,
     id: 'tt',
-  },
-  {
-    title: 'Tabletop Simulator',
-    urlParts: ['/Tabletop_Simulator__', 'steamcommunity.com/sharedfiles'],
-    icon: tabletopSimulatorIcon,
-    id: 'ts',
   },
   {
     title: 'Android',

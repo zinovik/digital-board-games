@@ -12,6 +12,8 @@ const loadDigitalBoardGames = async (): Promise<void> => {
   loadedDigitalBoardGames = await response.json();
 };
 
+export const NAME_ID_SEPARATOR = '|';
+
 export const getDigitalBoardGames =
   async (): Promise<DigitalBoardGamesData> => {
     if (Object.keys(loadedDigitalBoardGames).length === 0) {
