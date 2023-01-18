@@ -75,7 +75,7 @@ export const getGamesData = async (
 
   const games = filter.isWithoutImplementation
     ? mergeGames(bggGamesRanks.games, digitalGames)
-    : digitalGames;
+    : digitalGames.filter((game) => game.sites.length > 0);
 
   return {
     ranks: bggGamesRanks.games.length,
