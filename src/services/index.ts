@@ -55,8 +55,8 @@ export const getGamesData = async (
     getDigitalBoardGames(),
   ]);
 
-  const digitalGames: Game[] = Object.entries(digitalBoardGames).map(
-    ([key, value]): Game => {
+  const digitalGames: Game[] = Object.entries(digitalBoardGames).reduce(
+    (acc, [key, value]) => {
       const [name, id] = getNameAndId(key);
       const sites = value.filter(
         (site) => filter.sites[getSiteData(site).title]
@@ -66,16 +66,22 @@ export const getGamesData = async (
         isSameGame(bggGame, name, id)
       );
 
-      return {
-        ...(bggGame ? bggGame : { rank: 0, name, id }),
-        sites,
-      };
-    }
+      return sites.length > 0
+        ? [
+            ...acc,
+            {
+              ...(bggGame ? bggGame : { rank: 0, name, id }),
+              sites,
+            },
+          ]
+        : acc;
+    },
+    [] as Game[]
   );
 
   const games = filter.isWithoutImplementation
     ? mergeGames(bggGamesRanks.games, digitalGames)
-    : digitalGames.filter((game) => game.sites.length > 0);
+    : digitalGames;
 
   return {
     ranks: bggGamesRanks.games.length,
