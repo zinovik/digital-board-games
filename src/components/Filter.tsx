@@ -76,6 +76,7 @@ export const Filter = ({ filter, setFilter, isDisabled }: Props) => {
         id={WITHOUT_IMPLEMENTATION}
         onChange={handleIsWithoutImplementationChange}
         checked={isWithoutImplementation}
+        disabled={isDisabled}
       />
       <label htmlFor={WITHOUT_IMPLEMENTATION}>{WITHOUT_IMPLEMENTATION}</label>
     </div>
