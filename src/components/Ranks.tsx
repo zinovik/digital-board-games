@@ -3,14 +3,14 @@ import { useState } from 'react';
 interface Props {
   date: string;
   update: () => Promise<void>;
-  useUpdate: () => () => void;
+  onUpdating: () => () => void;
 }
 
-export const Ranks = ({ date, update, useUpdate }: Props) => {
+export const Ranks = ({ date, update, onUpdating }: Props) => {
   const [isUpdating, setIsUpdating] = useState(false);
 
   const handleUpdateClick = () => {
-    const onUpdateEnd = useUpdate();
+    const onUpdateEnd = onUpdating();
     setIsUpdating(true);
     update().finally(() => {
       setIsUpdating(false);

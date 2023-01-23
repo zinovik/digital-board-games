@@ -88,7 +88,7 @@ export const DigitalBoardGames = () => {
 
   if (gamesData.ranks === 0) return <>⏳ Loading...</>;
 
-  const useUpdate = () => {
+  const onUpdating = () => {
     setIsUpdating(true);
 
     return () => setIsUpdating(false);
@@ -102,7 +102,7 @@ export const DigitalBoardGames = () => {
         isDisabled={isUpdating}
       />
 
-      <Ranks date={date} update={handleUpdateClick} useUpdate={useUpdate} />
+      <Ranks date={date} update={handleUpdateClick} onUpdating={onUpdating} />
 
       <Games games={games} ranks={ranks} />
     </main>
