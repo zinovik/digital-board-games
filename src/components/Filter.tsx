@@ -10,9 +10,10 @@ import { Icon } from './Icon';
 interface Props {
   filter: FilterState;
   setFilter: (filter: FilterState) => void;
+  isDisabled?: boolean;
 }
 
-export const Filter = ({ filter, setFilter }: Props) => {
+export const Filter = ({ filter, setFilter, isDisabled }: Props) => {
   const { sites, isWithoutImplementation } = filter;
   const isAllChecked =
     isWithoutImplementation && !Object.values(sites).includes(false);
@@ -61,6 +62,7 @@ export const Filter = ({ filter, setFilter }: Props) => {
             id={title}
             onChange={() => handleSiteChange(title)}
             checked={sites[title]}
+            disabled={isDisabled}
           />
           <label htmlFor={title}>
             <Icon src={icon} alt={title} />

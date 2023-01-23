@@ -86,11 +86,23 @@ export const DigitalBoardGames = () => {
 
   if (gamesData.ranks === 0) return <>⏳ Loading...</>;
 
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  const useUpdate = () => {
+    setIsUpdating(true);
+
+    return () => setIsUpdating(false);
+  };
+
   return (
     <main>
-      <Filter filter={filter} setFilter={handleSetFilter} />
+      <Filter
+        filter={filter}
+        setFilter={handleSetFilter}
+        isDisabled={isUpdating}
+      />
 
-      <Ranks date={date} update={handleUpdateClick} />
+      <Ranks date={date} update={handleUpdateClick} useUpdate={useUpdate} />
 
       <Games games={games} ranks={ranks} />
     </main>
