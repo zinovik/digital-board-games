@@ -86,13 +86,13 @@ export const DigitalBoardGames = () => {
 
   const [isUpdating, setIsUpdating] = useState(false);
 
-  if (gamesData.ranks === 0) return <>⏳ Loading...</>;
-
   const onUpdating = () => {
     setIsUpdating(true);
 
     return () => setIsUpdating(false);
   };
+
+  if (gamesData.ranks === 0) return <>⏳ Loading...</>;
 
   return (
     <main>

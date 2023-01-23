@@ -52,6 +52,7 @@ export const Filter = ({ filter, setFilter, isDisabled }: Props) => {
         id={ALL}
         onChange={handleAllChange}
         checked={isAllChecked}
+        disabled={isDisabled}
       />
       <label htmlFor={ALL}>{ALL}</label>
 
