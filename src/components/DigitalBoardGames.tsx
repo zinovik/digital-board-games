@@ -24,7 +24,7 @@ const searchConfigToFilter = (search: string): FilterState => {
       }),
       {} as SitesFilter
     ),
-    isShallAllGames: sites.includes(SHOW_ALL_GAMES_ID),
+    isShowAllGames: sites.includes(SHOW_ALL_GAMES_ID),
   };
 };
 
@@ -33,7 +33,7 @@ const filterToSearchConfig = (filterState: FilterState): string | null => {
     ...siteConfigs
       .filter((siteConfig) => filterState.sites[siteConfig.title])
       .map((siteConfigs) => siteConfigs.id),
-    ...(filterState.isShallAllGames ? [SHOW_ALL_GAMES_ID] : []),
+    ...(filterState.isShowAllGames ? [SHOW_ALL_GAMES_ID] : []),
   ].join(',');
 
   return searchConfig === initialSearchConfig ? null : searchConfig;

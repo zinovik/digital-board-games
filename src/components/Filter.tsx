@@ -14,11 +14,11 @@ interface Props {
 }
 
 export const Filter = ({ filter, setFilter, isDisabled }: Props) => {
-  const { sites, isShallAllGames } = filter;
+  const { sites, isShowAllGames } = filter;
   const isSelectAllChecked =
-    isShallAllGames && !Object.values(sites).includes(false);
+    isShowAllGames && !Object.values(sites).includes(false);
 
-  const handleAllChange = () => {
+  const handleSelectAllChange = () => {
     const allSitesFilter = Object.keys(sites).reduce(
       (acc, site) => ({
         ...acc,
@@ -29,7 +29,7 @@ export const Filter = ({ filter, setFilter, isDisabled }: Props) => {
 
     setFilter({
       sites: allSitesFilter,
-      isShallAllGames: !isSelectAllChecked,
+      isShowAllGames: !isSelectAllChecked,
     });
   };
 
@@ -39,18 +39,18 @@ export const Filter = ({ filter, setFilter, isDisabled }: Props) => {
         ...sites,
         [title]: !sites[title],
       },
-      isShallAllGames,
+      isShowAllGames,
     });
 
-  const handleIsShallAllGamesChange = () =>
-    setFilter({ sites, isShallAllGames: !isShallAllGames });
+  const handleIsShowAllGamesChange = () =>
+    setFilter({ sites, isShowAllGames: !isShowAllGames });
 
   return (
     <div style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem' }}>
       <input
         type="checkbox"
         id={SELECT_ALL}
-        onChange={handleAllChange}
+        onChange={handleSelectAllChange}
         checked={isSelectAllChecked}
         disabled={isDisabled}
       />
@@ -75,8 +75,8 @@ export const Filter = ({ filter, setFilter, isDisabled }: Props) => {
       <input
         type="checkbox"
         id={SHOW_ALL_GAMES}
-        onChange={handleIsShallAllGamesChange}
-        checked={isShallAllGames}
+        onChange={handleIsShowAllGamesChange}
+        checked={isShowAllGames}
         disabled={isDisabled}
       />
       <label htmlFor={SHOW_ALL_GAMES}>{SHOW_ALL_GAMES}</label>
