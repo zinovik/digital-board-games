@@ -79,7 +79,7 @@ export const getGamesData = async (
     [] as Game[]
   );
 
-  const games = filter.isWithoutImplementation
+  const games = filter.isShallAllGames
     ? mergeGames(bggGamesRanks.games, digitalGames)
     : digitalGames;
 

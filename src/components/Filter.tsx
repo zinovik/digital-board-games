@@ -1,8 +1,8 @@
 import {
   siteConfigs,
   SiteTitle,
-  ALL,
-  WITHOUT_IMPLEMENTATION,
+  SELECT_ALL,
+  SHOW_ALL_GAMES,
 } from '../services/site-configs';
 import { FilterState, SitesFilter } from '../types/filter-state';
 import { Icon } from './Icon';
@@ -14,22 +14,22 @@ interface Props {
 }
 
 export const Filter = ({ filter, setFilter, isDisabled }: Props) => {
-  const { sites, isWithoutImplementation } = filter;
-  const isAllChecked =
-    isWithoutImplementation && !Object.values(sites).includes(false);
+  const { sites, isShallAllGames } = filter;
+  const isSelectAllChecked =
+    isShallAllGames && !Object.values(sites).includes(false);
 
   const handleAllChange = () => {
     const allSitesFilter = Object.keys(sites).reduce(
       (acc, site) => ({
         ...acc,
-        [site]: !isAllChecked,
+        [site]: !isSelectAllChecked,
       }),
       {} as SitesFilter
     );
 
     setFilter({
       sites: allSitesFilter,
-      isWithoutImplementation: !isAllChecked,
+      isShallAllGames: !isSelectAllChecked,
     });
   };
 
@@ -39,22 +39,22 @@ export const Filter = ({ filter, setFilter, isDisabled }: Props) => {
         ...sites,
         [title]: !sites[title],
       },
-      isWithoutImplementation,
+      isShallAllGames,
     });
 
-  const handleIsWithoutImplementationChange = () =>
-    setFilter({ sites, isWithoutImplementation: !isWithoutImplementation });
+  const handleIsShallAllGamesChange = () =>
+    setFilter({ sites, isShallAllGames: !isShallAllGames });
 
   return (
     <div style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem' }}>
       <input
         type="checkbox"
-        id={ALL}
+        id={SELECT_ALL}
         onChange={handleAllChange}
-        checked={isAllChecked}
+        checked={isSelectAllChecked}
         disabled={isDisabled}
       />
-      <label htmlFor={ALL}>{ALL}</label>
+      <label htmlFor={SELECT_ALL}>{SELECT_ALL}</label>
 
       {siteConfigs.map(({ title, icon }) => (
         <div key={title}>
@@ -74,12 +74,12 @@ export const Filter = ({ filter, setFilter, isDisabled }: Props) => {
 
       <input
         type="checkbox"
-        id={WITHOUT_IMPLEMENTATION}
-        onChange={handleIsWithoutImplementationChange}
-        checked={isWithoutImplementation}
+        id={SHOW_ALL_GAMES}
+        onChange={handleIsShallAllGamesChange}
+        checked={isShallAllGames}
         disabled={isDisabled}
       />
-      <label htmlFor={WITHOUT_IMPLEMENTATION}>{WITHOUT_IMPLEMENTATION}</label>
+      <label htmlFor={SHOW_ALL_GAMES}>{SHOW_ALL_GAMES}</label>
     </div>
   );
 };

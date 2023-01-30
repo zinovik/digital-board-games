@@ -11,9 +11,9 @@ import steamIcon from '../icons/steam.png';
 import desktopIcon from '../icons/desktop.png';
 import webIcon from '../icons/web.webp';
 
-export const ALL = 'All';
-export const WITHOUT_IMPLEMENTATION = 'Without Implementation';
-export const WITHOUT_IMPLEMENTATION_ID = 'wi';
+export const SELECT_ALL = 'Select All';
+export const SHOW_ALL_GAMES = 'Show All Games in the List';
+export const SHOW_ALL_GAMES_ID = 'sa';
 
 export const siteConfigs = [
   {
