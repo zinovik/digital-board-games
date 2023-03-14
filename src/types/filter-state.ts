@@ -4,5 +4,5 @@ export type SitesFilter = Record<SiteTitle, boolean>;
 
 export type FilterState = {
   sites: SitesFilter;
-  isShowAllGames: boolean;
+  isAlsoShowGamesWithoutImplementation: boolean;
 };

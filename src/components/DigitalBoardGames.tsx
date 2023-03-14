@@ -3,7 +3,10 @@ import { Filter } from './Filter';
 import { Ranks } from './Ranks';
 import { Games } from './Games';
 import { getGamesData } from '../services';
-import { siteConfigs, SHOW_ALL_GAMES_ID } from '../services/site-configs';
+import {
+  siteConfigs,
+  ALSO_SHOW_GAMES_WITHOUT_IMPLEMENTATION_ID,
+} from '../services/site-configs';
 import { Game } from '../types/game';
 import { FilterState, SitesFilter } from '../types/filter-state';
 
@@ -24,7 +27,9 @@ const searchConfigToFilter = (search: string): FilterState => {
       }),
       {} as SitesFilter
     ),
-    isShowAllGames: sites.includes(SHOW_ALL_GAMES_ID),
+    isAlsoShowGamesWithoutImplementation: sites.includes(
+      ALSO_SHOW_GAMES_WITHOUT_IMPLEMENTATION_ID
+    ),
   };
 };
 
@@ -33,7 +38,9 @@ const filterToSearchConfig = (filterState: FilterState): string | null => {
     ...siteConfigs
       .filter((siteConfig) => filterState.sites[siteConfig.title])
       .map((siteConfigs) => siteConfigs.id),
-    ...(filterState.isShowAllGames ? [SHOW_ALL_GAMES_ID] : []),
+    ...(filterState.isAlsoShowGamesWithoutImplementation
+      ? [ALSO_SHOW_GAMES_WITHOUT_IMPLEMENTATION_ID]
+      : []),
   ].join(',');
 
   return searchConfig === initialSearchConfig ? null : searchConfig;

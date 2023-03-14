@@ -4,6 +4,7 @@ import boiteajeuxIcon from '../icons/boiteajeux.jpg';
 import mattleIcon from '../icons/mattle.png';
 import brettspielweltIcon from '../icons/brettspielwelt.jpg';
 import happyMeeple from '../icons/happymeeple.png';
+import sovrantiIcon from '../icons/sovranti.avif';
 import tabletopiaIcon from '../icons/tabletopia.png';
 import androidIcon from '../icons/android.svg';
 import iosIcon from '../icons/ios.png';
@@ -11,9 +12,10 @@ import steamIcon from '../icons/steam.png';
 import desktopIcon from '../icons/desktop.png';
 import webIcon from '../icons/web.webp';
 
-export const SELECT_ALL = 'Select All';
-export const SHOW_ALL_GAMES = 'Show All Games in the List';
-export const SHOW_ALL_GAMES_ID = 'sa';
+export const SELECT_ALL = 'Select all';
+export const ALSO_SHOW_GAMES_WITHOUT_IMPLEMENTATION =
+  'Also, show the games without implementation on selected sites';
+export const ALSO_SHOW_GAMES_WITHOUT_IMPLEMENTATION_ID = 'sa';
 
 export const siteConfigs = [
   {
@@ -51,6 +53,12 @@ export const siteConfigs = [
     urlParts: ['happymeeple.com'],
     icon: happyMeeple,
     id: 'hm',
+  },
+  {
+    title: 'Sovranti',
+    urlParts: ['sovranti.com'],
+    icon: sovrantiIcon,
+    id: 'so',
   },
   {
     title: 'Tabletopia',

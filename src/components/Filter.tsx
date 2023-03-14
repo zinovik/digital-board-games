@@ -2,7 +2,7 @@ import {
   siteConfigs,
   SiteTitle,
   SELECT_ALL,
-  SHOW_ALL_GAMES,
+  ALSO_SHOW_GAMES_WITHOUT_IMPLEMENTATION,
 } from '../services/site-configs';
 import { FilterState, SitesFilter } from '../types/filter-state';
 import { Icon } from './Icon';
@@ -14,9 +14,10 @@ interface Props {
 }
 
 export const Filter = ({ filter, setFilter, isDisabled }: Props) => {
-  const { sites, isShowAllGames } = filter;
+  const { sites, isAlsoShowGamesWithoutImplementation } = filter;
   const isSelectAllChecked =
-    isShowAllGames && !Object.values(sites).includes(false);
+    isAlsoShowGamesWithoutImplementation &&
+    !Object.values(sites).includes(false);
 
   const handleSelectAllChange = () => {
     const allSitesFilter = Object.keys(sites).reduce(
@@ -29,7 +30,7 @@ export const Filter = ({ filter, setFilter, isDisabled }: Props) => {
 
     setFilter({
       sites: allSitesFilter,
-      isShowAllGames: !isSelectAllChecked,
+      isAlsoShowGamesWithoutImplementation: !isSelectAllChecked,
     });
   };
 
@@ -39,11 +40,15 @@ export const Filter = ({ filter, setFilter, isDisabled }: Props) => {
         ...sites,
         [title]: !sites[title],
       },
-      isShowAllGames,
+      isAlsoShowGamesWithoutImplementation,
     });
 
-  const handleIsShowAllGamesChange = () =>
-    setFilter({ sites, isShowAllGames: !isShowAllGames });
+  const handleIsAlsoShowGamesWithoutImplementationChange = () =>
+    setFilter({
+      sites,
+      isAlsoShowGamesWithoutImplementation:
+        !isAlsoShowGamesWithoutImplementation,
+    });
 
   return (
     <div style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem' }}>
@@ -74,12 +79,14 @@ export const Filter = ({ filter, setFilter, isDisabled }: Props) => {
 
       <input
         type="checkbox"
-        id={SHOW_ALL_GAMES}
-        onChange={handleIsShowAllGamesChange}
-        checked={isShowAllGames}
+        id={ALSO_SHOW_GAMES_WITHOUT_IMPLEMENTATION}
+        onChange={handleIsAlsoShowGamesWithoutImplementationChange}
+        checked={isAlsoShowGamesWithoutImplementation}
         disabled={isDisabled}
       />
-      <label htmlFor={SHOW_ALL_GAMES}>{SHOW_ALL_GAMES}</label>
+      <label htmlFor={ALSO_SHOW_GAMES_WITHOUT_IMPLEMENTATION}>
+        {ALSO_SHOW_GAMES_WITHOUT_IMPLEMENTATION}
+      </label>
     </div>
   );
 };
