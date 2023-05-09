@@ -43,7 +43,6 @@ const mergeGames = (bggGames: BGGGame[], games: Game[]) =>
   );
 
 export const getGamesData = async (
-  filter: FilterState,
   isForceUpdate?: boolean
 ): Promise<{
   ranks: number;
@@ -55,37 +54,24 @@ export const getGamesData = async (
     getDigitalBoardGames(),
   ]);
 
-  const digitalGames: Game[] = Object.entries(digitalBoardGames).reduce(
-    (acc, [key, value]) => {
+  const digitalGames: Game[] = Object.entries(digitalBoardGames).map(
+    ([key, sites]) => {
       const [name, id] = getNameAndId(key);
-      const sites = value.filter(
-        (site) => filter.sites[getSiteData(site).title]
-      );
 
       const bggGame = bggGamesRanks.games.find((bggGame) =>
         isSameGame(bggGame, name, id)
       );
 
-      return sites.length > 0
-        ? [
-            ...acc,
-            {
-              ...(bggGame ? bggGame : { rank: 0, name, id }),
-              sites,
-            },
-          ]
-        : acc;
-    },
-    [] as Game[]
+      return {
+        ...(bggGame ? bggGame : { rank: 0, name, id }),
+        sites,
+      };
+    }
   );
-
-  const games = filter.isAlsoShowGamesWithoutImplementation
-    ? mergeGames(bggGamesRanks.games, digitalGames)
-    : digitalGames;
 
   return {
     ranks: bggGamesRanks.games.length,
-    games: games.sort(sortByRank),
+    games: mergeGames(bggGamesRanks.games, digitalGames).sort(sortByRank),
     date: bggGamesRanks.date,
   };
 };
@@ -105,4 +91,20 @@ export const getSiteData = (
     icon: siteConfig.icon,
     title: siteConfig.title,
   };
+};
+
+export const filterGames = (games: Game[], filter: FilterState) => {
+  const mutableFilteredGames: Game[] = [];
+
+  games.forEach((game) => {
+    const filteredGameSites = game.sites.filter(
+      (site) => filter.sites[getSiteData(site).title]
+    );
+
+    mutableFilteredGames.push({ ...game, sites: filteredGameSites });
+  });
+
+  return filter.isAlsoShowGamesWithoutImplementation
+    ? mutableFilteredGames
+    : mutableFilteredGames.filter((game) => game.sites.length > 0);
 };

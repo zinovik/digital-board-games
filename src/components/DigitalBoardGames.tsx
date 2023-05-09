@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Filter } from './Filter';
 import { Ranks } from './Ranks';
 import { Games } from './Games';
-import { getGamesData } from '../services';
+import { filterGames, getGamesData } from '../services';
 import {
   siteConfigs,
   ALSO_SHOW_GAMES_WITHOUT_IMPLEMENTATION_ID,
@@ -57,19 +57,13 @@ export const DigitalBoardGames = () => {
     date: string;
   });
 
-  const [filter, setFilter] = useState(
-    searchConfigToFilter(
-      window.location.search.includes(SEARCH_CONFIG_NAME)
-        ? window.location.search.replace(SEARCH_CONFIG_NAME, '')
-        : initialSearchConfig
-    )
-  );
-
   useEffect(() => {
-    getGamesData(filter).then((result) => setGamesData(result));
-  }, [filter]);
+    getGamesData().then(setGamesData);
+  }, []);
 
   const { games, ranks, date } = gamesData;
+
+  if (ranks === 0) return <>⏳ Loading...</>;
 
   const handleSetFilter = (filter: FilterState) => {
     window.history.pushState(
@@ -80,35 +74,24 @@ export const DigitalBoardGames = () => {
         : '/digital-board-games'
     );
 
-    setFilter(filter);
+    setGamesData({ ...gamesData }); // force reload
   };
 
-  const handleUpdateClick = async () =>
-    getGamesData(filter, true).then((result) => {
-      setGamesData(result);
-    });
+  const filter = searchConfigToFilter(
+    window.location.search.includes(SEARCH_CONFIG_NAME)
+      ? window.location.search.replace(SEARCH_CONFIG_NAME, '')
+      : initialSearchConfig
+  );
 
-  const [isUpdating, setIsUpdating] = useState(false);
-
-  const onUpdating = () => {
-    setIsUpdating(true);
-
-    return () => setIsUpdating(false);
-  };
-
-  if (gamesData.ranks === 0) return <>⏳ Loading...</>;
+  const filteredGames = filterGames(games, filter);
 
   return (
     <main>
-      <Filter
-        filter={filter}
-        setFilter={handleSetFilter}
-        isDisabled={isUpdating}
-      />
+      <Filter filter={filter} setFilter={handleSetFilter} />
 
-      <Ranks date={date} update={handleUpdateClick} onUpdating={onUpdating} />
+      <Ranks date={date} update={() => getGamesData(true).then(setGamesData)} />
 
-      <Games games={games} ranks={ranks} />
+      <Games games={filteredGames} ranks={ranks} />
     </main>
   );
 };

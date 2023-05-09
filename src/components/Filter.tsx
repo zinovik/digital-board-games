@@ -10,10 +10,9 @@ import { Icon } from './Icon';
 interface Props {
   filter: FilterState;
   setFilter: (filter: FilterState) => void;
-  isDisabled?: boolean;
 }
 
-export const Filter = ({ filter, setFilter, isDisabled }: Props) => {
+export const Filter = ({ filter, setFilter }: Props) => {
   const { sites, isAlsoShowGamesWithoutImplementation } = filter;
   const isSelectAllChecked =
     isAlsoShowGamesWithoutImplementation &&
@@ -57,7 +56,6 @@ export const Filter = ({ filter, setFilter, isDisabled }: Props) => {
         id={SELECT_ALL}
         onChange={handleSelectAllChange}
         checked={isSelectAllChecked}
-        disabled={isDisabled}
       />
       <label htmlFor={SELECT_ALL}>{SELECT_ALL}</label>
 
@@ -68,7 +66,6 @@ export const Filter = ({ filter, setFilter, isDisabled }: Props) => {
             id={title}
             onChange={() => handleSiteChange(title)}
             checked={sites[title]}
-            disabled={isDisabled}
           />
           <label htmlFor={title}>
             <Icon src={icon} alt={title} />
@@ -82,7 +79,6 @@ export const Filter = ({ filter, setFilter, isDisabled }: Props) => {
         id={ALSO_SHOW_GAMES_WITHOUT_IMPLEMENTATION}
         onChange={handleIsAlsoShowGamesWithoutImplementationChange}
         checked={isAlsoShowGamesWithoutImplementation}
-        disabled={isDisabled}
       />
       <label htmlFor={ALSO_SHOW_GAMES_WITHOUT_IMPLEMENTATION}>
         {ALSO_SHOW_GAMES_WITHOUT_IMPLEMENTATION}
