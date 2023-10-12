@@ -2,8 +2,10 @@ import boargamearenaIcon from '../icons/boargamearena.jpg';
 import yucataIcon from '../icons/yucata.jpg';
 import boiteajeuxIcon from '../icons/boiteajeux.jpg';
 import boardgamecoreIcon from '../icons/boardgamecore.png';
+import boardgamersspaceIcon from '../icons/boardgamersspace.svg';
 import mattleIcon from '../icons/mattle.png';
 import brettspielweltIcon from '../icons/brettspielwelt.jpg';
+import boardspaceIcon from '../icons/boardspace.jpg';
 import happyMeeple from '../icons/happymeeple.png';
 import sovrantiIcon from '../icons/sovranti.avif';
 import tabletopiaIcon from '../icons/tabletopia.png';
@@ -38,10 +40,16 @@ export const siteConfigs = [
     id: 'bj',
   },
   {
-    title: 'Boardgame Core',
+    title: 'Board Game Core',
     urlParts: ['boardgamecore.net'],
     icon: boardgamecoreIcon,
     id: 'bc',
+  },
+  {
+    title: 'Board Games Space',
+    urlParts: ['boardgamers.space'],
+    icon: boardgamersspaceIcon,
+    id: 'bs',
   },
   {
     title: 'Happy Meeple',
@@ -54,6 +62,12 @@ export const siteConfigs = [
     urlParts: ['brettspielwelt.de'],
     icon: brettspielweltIcon,
     id: 'bw',
+  },
+  {
+    title: 'Board Space',
+    urlParts: ['boardspace.net'],
+    icon: boardspaceIcon,
+    id: 'bp',
   },
   {
     title: 'Mattle',
