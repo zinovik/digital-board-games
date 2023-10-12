@@ -2,7 +2,7 @@ import boargamearenaIcon from '../icons/boargamearena.jpg';
 import yucataIcon from '../icons/yucata.jpg';
 import boiteajeuxIcon from '../icons/boiteajeux.jpg';
 import boardgamecoreIcon from '../icons/boardgamecore.png';
-import boardgamersspaceIcon from '../icons/boardgamersspace.svg';
+import boardgamersspaceIcon from '../icons/boardgamersspace.png';
 import mattleIcon from '../icons/mattle.png';
 import brettspielweltIcon from '../icons/brettspielwelt.jpg';
 import boardspaceIcon from '../icons/boardspace.jpg';
