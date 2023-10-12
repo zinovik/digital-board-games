@@ -1,6 +1,7 @@
 import boargamearenaIcon from '../icons/boargamearena.jpg';
 import yucataIcon from '../icons/yucata.jpg';
 import boiteajeuxIcon from '../icons/boiteajeux.jpg';
+import boardgamecoreIcon from '../icons/boardgamecore.png';
 import mattleIcon from '../icons/mattle.png';
 import brettspielweltIcon from '../icons/brettspielwelt.jpg';
 import happyMeeple from '../icons/happymeeple.png';
@@ -37,10 +38,16 @@ export const siteConfigs = [
     id: 'bj',
   },
   {
-    title: 'Mattle',
-    urlParts: ['mattle.online'],
-    icon: mattleIcon,
-    id: 'ma',
+    title: 'Boardgame Core',
+    urlParts: ['boardgamecore.net'],
+    icon: boardgamecoreIcon,
+    id: 'bc',
+  },
+  {
+    title: 'Happy Meeple',
+    urlParts: ['happymeeple.com'],
+    icon: happyMeeple,
+    id: 'hm',
   },
   {
     title: 'Brettspiel Welt',
@@ -49,10 +56,10 @@ export const siteConfigs = [
     id: 'bw',
   },
   {
-    title: 'Happy Meeple',
-    urlParts: ['happymeeple.com'],
-    icon: happyMeeple,
-    id: 'hm',
+    title: 'Mattle',
+    urlParts: ['mattle.online'],
+    icon: mattleIcon,
+    id: 'ma',
   },
   {
     title: 'Sovranti',
@@ -100,4 +107,4 @@ export const siteConfigs = [
 
 const siteTitles = siteConfigs.map(({ title }) => title);
 
-export type SiteTitle = typeof siteTitles[number];
+export type SiteTitle = (typeof siteTitles)[number];
