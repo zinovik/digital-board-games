@@ -1,22 +1,24 @@
 {
   "files": {
     "main.css": "/digital-board-games/static/css/main.735365a3.css",
-    "main.js": "/digital-board-games/static/js/main.91357040.js",
+    "main.js": "/digital-board-games/static/js/main.af7de90c.js",
     "static/js/496.a4ec7e0e.chunk.js": "/digital-board-games/static/js/496.a4ec7e0e.chunk.js",
     "static/media/boargamearena.jpg": "/digital-board-games/static/media/boargamearena.1d0b1f2fab51e56db0ca.jpg",
     "static/media/web.webp": "/digital-board-games/static/media/web.12ba0a9c44e0f66182d6.webp",
     "static/media/boiteajeux.jpg": "/digital-board-games/static/media/boiteajeux.7dc5c27c60f77682c7ed.jpg",
     "static/media/steam.png": "/digital-board-games/static/media/steam.9e14748e421ddcf58bf4.png",
+    "static/media/boardspace.jpg": "/digital-board-games/static/media/boardspace.fd78812203c2a51afb29.jpg",
     "static/media/happymeeple.png": "/digital-board-games/static/media/happymeeple.339398ffcea600280215.png",
     "static/media/sovranti.avif": "/digital-board-games/static/media/sovranti.f759f08a996d41f51471.avif",
+    "static/media/boardgamersspace.svg": "/digital-board-games/static/media/boardgamersspace.a0f768a0ab22e81e2e45d7cd40fc79ce.svg",
     "static/media/android.svg": "/digital-board-games/static/media/android.0eff42feada63d2828fb8749d53775a1.svg",
     "index.html": "/digital-board-games/index.html",
     "main.735365a3.css.map": "/digital-board-games/static/css/main.735365a3.css.map",
-    "main.91357040.js.map": "/digital-board-games/static/js/main.91357040.js.map",
+    "main.af7de90c.js.map": "/digital-board-games/static/js/main.af7de90c.js.map",
     "496.a4ec7e0e.chunk.js.map": "/digital-board-games/static/js/496.a4ec7e0e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.735365a3.css",
-    "static/js/main.91357040.js"
+    "static/js/main.af7de90c.js"
   ]
 }
