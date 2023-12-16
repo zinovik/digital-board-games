@@ -20,7 +20,9 @@ export const Games = ({ ranks, games }: Props) => (
         <div className="cell game">
           <a
             href={`https://boardgamegeek.com/${
-              game.id ? `boardgame/${game.id}` : `browse/boardgame`
+              game.id
+                ? `boardgame/${game.id}`
+                : `geeksearch.php?action=search&objecttype=boardgame&q=${game.name}`
             }`}
             target="_blank"
             rel="noreferrer"
