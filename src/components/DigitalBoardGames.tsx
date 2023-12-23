@@ -89,7 +89,7 @@ export const DigitalBoardGames = () => {
     <main>
       <Filter filter={filter} setFilter={handleSetFilter} />
 
-      <Ranks date={date} update={() => getGamesData(true).then(setGamesData)} />
+      <Ranks date={date} />
 
       <Games games={filteredGames} ranks={ranks} />
     </main>

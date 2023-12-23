@@ -1,4 +1,4 @@
-import { BGG_GAMES_RANKS_STATIC, BGG_GAMES_RANKS_FUNCTION } from '../constants';
+import { BGG_GAMES_RANKS_STATIC } from '../constants';
 
 export interface BGGGame {
   rank: number;
@@ -17,19 +17,15 @@ let loadedBGGGamesRanks: BGGGamesRanksData = {
   games: [],
 };
 
-const loadBGGGamesRanks = async (isForceUpdate?: boolean): Promise<void> => {
-  const response = await fetch(
-    isForceUpdate ? BGG_GAMES_RANKS_FUNCTION : BGG_GAMES_RANKS_STATIC
-  );
+const loadBGGGamesRanks = async (): Promise<void> => {
+  const response = await fetch(BGG_GAMES_RANKS_STATIC);
 
   loadedBGGGamesRanks = await response.json();
 };
 
-export const getBGGGamesRanks = async (
-  isForceUpdate?: boolean
-): Promise<BGGGamesRanksData> => {
-  if (isForceUpdate || loadedBGGGamesRanks.games.length === 0) {
-    await loadBGGGamesRanks(isForceUpdate);
+export const getBGGGamesRanks = async (): Promise<BGGGamesRanksData> => {
+  if (loadedBGGGamesRanks.games.length === 0) {
+    await loadBGGGamesRanks();
   }
 
   return { ...loadedBGGGamesRanks };

@@ -42,15 +42,13 @@ const mergeGames = (bggGames: BGGGame[], games: Game[]) =>
     games
   );
 
-export const getGamesData = async (
-  isForceUpdate?: boolean
-): Promise<{
+export const getGamesData = async (): Promise<{
   ranks: number;
   games: Game[];
   date: string;
 }> => {
   const [bggGamesRanks, digitalBoardGames] = await Promise.all([
-    getBGGGamesRanks(isForceUpdate),
+    getBGGGamesRanks(),
     getDigitalBoardGames(),
   ]);
 
