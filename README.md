@@ -8,7 +8,7 @@ interface DigitalBoardGamesData {
 }
 ```
 
-**BGG_GAMES_RANKS_STATIC** - an object with the array of games with the bgg rank
+**BGG_GAMES_RANKS** - an object with the array of games with the bgg rank
 
 ```typescript
 interface BGGGamesRanksData {

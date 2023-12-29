@@ -1,4 +1,4 @@
-import { BGG_GAMES_RANKS_STATIC } from '../constants';
+import { BGG_GAMES_RANKS } from '../constants';
 
 export interface BGGGame {
   rank: number;
@@ -18,7 +18,7 @@ let loadedBGGGamesRanks: BGGGamesRanksData = {
 };
 
 const loadBGGGamesRanks = async (): Promise<void> => {
-  const response = await fetch(BGG_GAMES_RANKS_STATIC);
+  const response = await fetch(BGG_GAMES_RANKS);
 
   loadedBGGGamesRanks = await response.json();
 };
