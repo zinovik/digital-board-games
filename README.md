@@ -21,3 +21,12 @@ interface BGGGamesRanksData {
   }[];
 }
 ```
+
+### create bucket, setup cors, check the bucket's cors:
+
+```bash
+gcloud storage buckets create gs://digital-board-games --location=us-central1
+gcloud storage buckets update gs://digital-board-games --cors-file=cors_file.json
+gcloud storage buckets describe gs://digital-board-games --format="default(cors_config)"
+gcloud storage buckets update gs://digital-board-games --versioning
+```
