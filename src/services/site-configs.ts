@@ -1,6 +1,5 @@
 import boargamearenaIcon from '../icons/boargamearena.jpg';
 import yucataIcon from '../icons/yucata.jpg';
-import boiteajeuxIcon from '../icons/boiteajeux.jpg';
 import boardgamecoreIcon from '../icons/boardgamecore.png';
 import boardgamersspaceIcon from '../icons/boardgamersspace.png';
 import mattleIcon from '../icons/mattle.png';
@@ -32,12 +31,6 @@ export const siteConfigs = [
     urlParts: ['yucata.de'],
     icon: yucataIcon,
     id: 'yu',
-  },
-  {
-    title: 'Boite a Jeux',
-    urlParts: ['boiteajeux.net'],
-    icon: boiteajeuxIcon,
-    id: 'bj',
   },
   {
     title: 'Board Game Core',
