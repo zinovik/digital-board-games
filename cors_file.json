@@ -3,6 +3,6 @@
         "origin": ["https://zinovik.github.io", "http://localhost:3000"],
         "method": ["GET"],
         "responseHeader": ["Content-Type"],
-        "maxAgeSeconds": 0
+        "maxAgeSeconds": 3600
     }
 ]
