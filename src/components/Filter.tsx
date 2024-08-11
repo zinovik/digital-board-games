@@ -19,13 +19,12 @@ export const Filter = ({ filter, setFilter }: Props) => {
     !Object.values(sites).includes(false);
 
   const handleSelectAllChange = () => {
-    const allSitesFilter = Object.keys(sites).reduce(
-      (acc, site) => ({
-        ...acc,
-        [site]: !isSelectAllChecked,
-      }),
-      {} as SitesFilter
-    );
+    const allSitesFilter = (
+      Object.keys(sites) as unknown as Array<keyof typeof sites>
+    ).reduce((mutableAcc, site) => {
+      mutableAcc[site] = !isSelectAllChecked;
+      return mutableAcc;
+    }, {} as SitesFilter);
 
     setFilter({
       sites: allSitesFilter,

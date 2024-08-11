@@ -28,19 +28,16 @@ const sortByRank = (
 };
 
 const mergeGames = (bggGames: BGGGame[], games: Game[]) =>
-  bggGames.reduce(
-    (acc, bggGame) =>
-      acc.some(({ name, id }) => isSameGame(bggGame, name, id))
-        ? acc
-        : [
-            ...acc,
-            {
-              ...bggGame,
-              sites: [],
-            },
-          ],
-    games
-  );
+  bggGames.reduce((mutableAcc, bggGame) => {
+    if (!mutableAcc.some(({ name, id }) => isSameGame(bggGame, name, id))) {
+      mutableAcc.push({
+        ...bggGame,
+        sites: [],
+      });
+    }
+
+    return mutableAcc;
+  }, games);
 
 export const getGamesData = async (): Promise<{
   ranks: number;

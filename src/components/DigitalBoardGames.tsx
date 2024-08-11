@@ -20,13 +20,10 @@ const searchConfigToFilter = (search: string): FilterState => {
   const sites = search.split(',');
 
   return {
-    sites: siteConfigs.reduce(
-      (acc, config) => ({
-        ...acc,
-        [config.title]: sites.includes(config.id),
-      }),
-      {} as SitesFilter
-    ),
+    sites: siteConfigs.reduce((mutableAcc, config) => {
+      mutableAcc[config.title] = sites.includes(config.id);
+      return mutableAcc;
+    }, {} as SitesFilter),
     isAlsoShowGamesWithoutImplementation: sites.includes(
       ALSO_SHOW_GAMES_WITHOUT_IMPLEMENTATION_ID
     ),
