@@ -60,7 +60,8 @@ export const DigitalBoardGames = () => {
 
   const { games, ranks, date } = gamesData;
 
-  if (ranks === 0) return <>⏳ Loading...</>;
+  if (ranks === 0)
+    return <div style={{ padding: '0.5rem' }}>⏳ Loading... Please wait</div>;
 
   const handleSetFilter = (filter: FilterState) => {
     window.history.pushState(
