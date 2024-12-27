@@ -60,9 +60,6 @@ export const DigitalBoardGames = () => {
 
   const { games, ranks, date } = gamesData;
 
-  if (ranks === 0)
-    return <div style={{ padding: '0.5rem' }}>⏳ Loading... Please wait</div>;
-
   const handleSetFilter = (filter: FilterState) => {
     window.history.pushState(
       {},
@@ -87,9 +84,16 @@ export const DigitalBoardGames = () => {
     <main>
       <Filter filter={filter} setFilter={handleSetFilter} />
 
-      <Ranks date={date} />
+      {ranks === 0 && (
+        <div style={{ padding: '0.5rem' }}>⏳ Loading... Please wait</div>
+      )}
 
-      <Games games={filteredGames} ranks={ranks} />
+      {ranks > 0 && (
+        <>
+          <Ranks date={date} />
+          <Games games={filteredGames} ranks={ranks} />
+        </>
+      )}
     </main>
   );
 };

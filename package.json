@@ -4,21 +4,23 @@
   "homepage": "https://zinovik.github.io/digital-board-games",
   "private": true,
   "dependencies": {
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
+  },
+  "devDependencies": {
     "@testing-library/jest-dom": "6.6.3",
-    "@testing-library/react": "16.0.1",
+    "@testing-library/react": "16.1.0",
     "@testing-library/user-event": "14.5.2",
     "@types/jest": "29.5.14",
-    "@types/node": "22.9.1",
-    "@types/react": "18.3.12",
-    "@types/react-dom": "18.3.1",
+    "@types/node": "22.10.2",
+    "@types/react": "19.0.2",
+    "@types/react-dom": "19.0.2",
     "gh-pages": "6.2.0",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
     "react-scripts": "5.0.1",
     "typescript": "4.9.5"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "BROWSER=none react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
