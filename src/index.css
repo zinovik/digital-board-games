@@ -27,6 +27,17 @@ a:hover, a:active {
   color: darkgreen;
 }
 
+label {
+  display: block;
+  width: 100%;
+}
+
+.line {
+  display: flex;
+  align-items: left;
+  gap: 2px;
+}
+
 .row {
   display: flex;
   flex-direction: row;

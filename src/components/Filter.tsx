@@ -50,16 +50,18 @@ export const Filter = ({ filter, setFilter }: Props) => {
 
   return (
     <div style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem' }}>
-      <input
-        type="checkbox"
-        id={SELECT_ALL}
-        onChange={handleSelectAllChange}
-        checked={isSelectAllChecked}
-      />
-      <label htmlFor={SELECT_ALL}>{SELECT_ALL}</label>
+      <div className="line">
+        <input
+          type="checkbox"
+          id={SELECT_ALL}
+          onChange={handleSelectAllChange}
+          checked={isSelectAllChecked}
+        />
+        <label htmlFor={SELECT_ALL}>{SELECT_ALL}</label>
+      </div>
 
       {siteConfigs.map(({ title, icon }) => (
-        <div key={title}>
+        <div key={title} className="line">
           <input
             type="checkbox"
             id={title}
@@ -73,15 +75,17 @@ export const Filter = ({ filter, setFilter }: Props) => {
         </div>
       ))}
 
-      <input
-        type="checkbox"
-        id={ALSO_SHOW_GAMES_WITHOUT_IMPLEMENTATION}
-        onChange={handleIsAlsoShowGamesWithoutImplementationChange}
-        checked={isAlsoShowGamesWithoutImplementation}
-      />
-      <label htmlFor={ALSO_SHOW_GAMES_WITHOUT_IMPLEMENTATION}>
-        {ALSO_SHOW_GAMES_WITHOUT_IMPLEMENTATION}
-      </label>
+      <div className="line">
+        <input
+          type="checkbox"
+          id={ALSO_SHOW_GAMES_WITHOUT_IMPLEMENTATION}
+          onChange={handleIsAlsoShowGamesWithoutImplementationChange}
+          checked={isAlsoShowGamesWithoutImplementation}
+        />
+        <label htmlFor={ALSO_SHOW_GAMES_WITHOUT_IMPLEMENTATION}>
+          {ALSO_SHOW_GAMES_WITHOUT_IMPLEMENTATION}
+        </label>
+      </div>
     </div>
   );
 };
