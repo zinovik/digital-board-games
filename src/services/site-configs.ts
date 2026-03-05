@@ -5,7 +5,6 @@ import boardgamersspaceIcon from '../icons/boardgamersspace.png';
 import mattleIcon from '../icons/mattle.png';
 import brettspielweltIcon from '../icons/brettspielwelt.jpg';
 import boardspaceIcon from '../icons/boardspace.jpg';
-import happyMeeple from '../icons/happymeeple.png';
 import sovrantiIcon from '../icons/sovranti.avif';
 import tabletopiaIcon from '../icons/tabletopia.png';
 import androidIcon from '../icons/android.svg';
@@ -43,12 +42,6 @@ export const siteConfigs = [
     urlParts: ['boardgamers.space'],
     icon: boardgamersspaceIcon,
     id: 'bs',
-  },
-  {
-    title: 'Happy Meeple',
-    urlParts: ['happymeeple.com'],
-    icon: happyMeeple,
-    id: 'hm',
   },
   {
     title: 'Brettspiel Welt',
