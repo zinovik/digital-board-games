@@ -1,4 +1,5 @@
-import { BGG_GAMES_RANKS } from '../constants';
+import { parseCsv } from './parseCsv';
+import { BOARDGAMES_RANKS_CSV_URL } from '../constants';
 
 export interface BGGGame {
   rank: number;
@@ -7,26 +8,50 @@ export interface BGGGame {
   id: string;
 }
 
-interface BGGGamesRanksData {
-  date: string;
-  games: BGGGame[];
-}
+let cachedGames: BGGGame[] | null = null;
+let inFlightRequest: Promise<BGGGame[]> | null = null;
 
-let loadedBGGGamesRanks: BGGGamesRanksData = {
-  date: '',
-  games: [],
-};
+async function fetchCsvText(url: string, timeoutMs = 30_000): Promise<string> {
+  const response = await fetch(url, { signal: AbortSignal.timeout(timeoutMs) });
 
-const loadBGGGamesRanks = async (): Promise<void> => {
-  const response = await fetch(BGG_GAMES_RANKS);
-
-  loadedBGGGamesRanks = await response.json();
-};
-
-export const getBGGGamesRanks = async (): Promise<BGGGamesRanksData> => {
-  if (loadedBGGGamesRanks.games.length === 0) {
-    await loadBGGGamesRanks();
+  if (!response.ok) {
+    throw new Error(`Failed to fetch boardgames rank data: ${response.status}`);
   }
 
-  return { ...loadedBGGGamesRanks };
+  return response.text();
+}
+
+async function fetchAndParseBGGGamesRanks(): Promise<BGGGame[]> {
+  const csv = await fetchCsvText(BOARDGAMES_RANKS_CSV_URL);
+
+  const [header, ...records]: string[][] = parseCsv(csv, 9999);
+
+  const rankIndex = header.indexOf('rank');
+  const nameIndex = header.indexOf('name');
+  const yearIndex = header.indexOf('yearpublished');
+  const idIndex = header.indexOf('id');
+
+  return records.map((record) => ({
+    rank: Number(record[rankIndex]),
+    name: record[nameIndex],
+    year: record[yearIndex],
+    id: record[idIndex],
+  }));
+}
+
+export const getBGGGamesRanks = async (): Promise<BGGGame[]> => {
+  if (cachedGames) return cachedGames;
+
+  if (!inFlightRequest) {
+    inFlightRequest = fetchAndParseBGGGamesRanks()
+      .then((games) => {
+        cachedGames = games;
+        return games;
+      })
+      .finally(() => {
+        inFlightRequest = null;
+      });
+  }
+
+  return inFlightRequest;
 };

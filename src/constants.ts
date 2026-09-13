@@ -1,4 +1,4 @@
 export const DIGITAL_BOARD_GAMES_URL =
   'https://storage.googleapis.com/digital-board-games/digital-board-games.json';
-export const BGG_GAMES_RANKS =
-  'https://storage.googleapis.com/boardgamegeek-ranks/bgg-games-ranks-top1000-latest.json';
+export const BOARDGAMES_RANKS_CSV_URL =
+  'https://storage.googleapis.com/boardgamegeek-bg-ranks-data-dump/boardgames_ranks.csv';

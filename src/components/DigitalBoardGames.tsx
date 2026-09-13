@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Filter } from './Filter';
-import { Ranks } from './Ranks';
 import { Games } from './Games';
-import { filterGames, getGamesData } from '../services';
+import { filterGames, getGames } from '../services';
 import {
   siteConfigs,
   ALSO_SHOW_GAMES_WITHOUT_IMPLEMENTATION_ID,
@@ -25,7 +24,7 @@ const searchConfigToFilter = (search: string): FilterState => {
       return mutableAcc;
     }, {} as SitesFilter),
     isAlsoShowGamesWithoutImplementation: sites.includes(
-      ALSO_SHOW_GAMES_WITHOUT_IMPLEMENTATION_ID
+      ALSO_SHOW_GAMES_WITHOUT_IMPLEMENTATION_ID,
     ),
   };
 };
@@ -44,21 +43,11 @@ const filterToSearchConfig = (filterState: FilterState): string | null => {
 };
 
 export const DigitalBoardGames = () => {
-  const [gamesData, setGamesData] = useState({
-    ranks: 0,
-    games: [],
-    date: '',
-  } as {
-    ranks: number;
-    games: Game[];
-    date: string;
-  });
+  const [games, setGames] = useState([] as Game[]);
 
   useEffect(() => {
-    getGamesData().then(setGamesData);
+    getGames().then(setGames);
   }, []);
-
-  const { games, ranks, date } = gamesData;
 
   const handleSetFilter = (filter: FilterState) => {
     window.history.pushState(
@@ -66,16 +55,16 @@ export const DigitalBoardGames = () => {
       '',
       filterToSearchConfig(filter) !== null
         ? `${SEARCH_CONFIG_NAME}${filterToSearchConfig(filter)}`
-        : '/digital-board-games'
+        : '/digital-board-games',
     );
 
-    setGamesData({ ...gamesData }); // force reload
+    setGames([...games]); // force reload
   };
 
   const filter = searchConfigToFilter(
     window.location.search.includes(SEARCH_CONFIG_NAME)
       ? window.location.search.replace(SEARCH_CONFIG_NAME, '')
-      : initialSearchConfig
+      : initialSearchConfig,
   );
 
   const filteredGames = filterGames(games, filter);
@@ -84,16 +73,11 @@ export const DigitalBoardGames = () => {
     <main>
       <Filter filter={filter} setFilter={handleSetFilter} />
 
-      {ranks === 0 && (
+      {games.length === 0 && (
         <div style={{ padding: '0.5rem' }}>⏳ Loading... Please wait</div>
       )}
 
-      {ranks > 0 && (
-        <>
-          <Ranks date={date} />
-          <Games games={filteredGames} ranks={ranks} />
-        </>
-      )}
+      {games.length > 0 && <Games games={filteredGames} />}
     </main>
   );
 };

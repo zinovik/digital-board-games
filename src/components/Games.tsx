@@ -2,11 +2,10 @@ import { SiteLink } from './SiteLink';
 import { Game } from '../types/game';
 
 interface Props {
-  ranks: number;
   games: Game[];
 }
 
-export const Games = ({ ranks, games }: Props) => (
+export const Games = ({ games }: Props) => (
   <div style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem' }}>
     <div className="row header">
       <div className="cell rank">Rank</div>
@@ -16,7 +15,7 @@ export const Games = ({ ranks, games }: Props) => (
 
     {games.map((game) => (
       <div className="row" key={`${game.name}${game.id}`}>
-        <div className="cell rank">{game.rank || `${ranks}+`}</div>
+        <div className="cell rank">{game.rank}</div>
         <div className="cell game">
           <a
             href={`https://boardgamegeek.com/${

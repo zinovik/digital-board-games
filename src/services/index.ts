@@ -13,12 +13,12 @@ const getNameAndId = (fullName: string): [string, string | undefined] => {
 const isSameGame = (
   bggGame: { id?: string; name: string },
   name: string,
-  id: string | undefined
+  id: string | undefined,
 ) => (id ? bggGame.id === id : bggGame.name === name);
 
 const sortByRank = (
   { rank: rank1, name: name1 }: { rank: number; name: string },
-  { rank: rank2, name: name2 }: { rank: number; name: string }
+  { rank: rank2, name: name2 }: { rank: number; name: string },
 ) => {
   if (!rank1 && !rank2) return name1.localeCompare(name2);
   if (!rank1) return 1;
@@ -39,11 +39,7 @@ const mergeGames = (bggGames: BGGGame[], games: Game[]) =>
     return mutableAcc;
   }, games);
 
-export const getGamesData = async (): Promise<{
-  ranks: number;
-  games: Game[];
-  date: string;
-}> => {
+export const getGames = async (): Promise<Game[]> => {
   const [bggGamesRanks, digitalBoardGames] = await Promise.all([
     getBGGGamesRanks(),
     getDigitalBoardGames(),
@@ -53,29 +49,25 @@ export const getGamesData = async (): Promise<{
     ([key, sites]) => {
       const [name, id] = getNameAndId(key);
 
-      const bggGame = bggGamesRanks.games.find((bggGame) =>
-        isSameGame(bggGame, name, id)
+      const bggGame = bggGamesRanks.find((bggGame) =>
+        isSameGame(bggGame, name, id),
       );
 
       return {
         ...(bggGame ? bggGame : { rank: 0, name, id }),
         sites,
       };
-    }
+    },
   );
 
-  return {
-    ranks: bggGamesRanks.games.length,
-    games: mergeGames(bggGamesRanks.games, digitalGames).sort(sortByRank),
-    date: bggGamesRanks.date,
-  };
+  return mergeGames(bggGamesRanks, digitalGames).sort(sortByRank);
 };
 
 export const getSiteData = (
-  site: string
+  site: string,
 ): { icon: string; title: SiteTitle } => {
   const siteConfig = siteConfigs.find(({ urlParts }) =>
-    urlParts.some((urlPart) => site.includes(urlPart))
+    urlParts.some((urlPart) => site.includes(urlPart)),
   );
 
   if (!siteConfig) {
@@ -93,7 +85,7 @@ export const filterGames = (games: Game[], filter: FilterState) => {
 
   games.forEach((game) => {
     const filteredGameSites = game.sites.filter(
-      (site) => filter.sites[getSiteData(site).title]
+      (site) => filter.sites[getSiteData(site).title],
     );
 
     mutableFilteredGames.push({ ...game, sites: filteredGameSites });
