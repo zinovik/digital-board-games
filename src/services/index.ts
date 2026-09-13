@@ -27,17 +27,30 @@ const sortByRank = (
   return rank1 - rank2;
 };
 
-const mergeGames = (bggGames: BGGGame[], games: Game[]) =>
-  bggGames.reduce((mutableAcc, bggGame) => {
-    if (!mutableAcc.some(({ name, id }) => isSameGame(bggGame, name, id))) {
-      mutableAcc.push({
-        ...bggGame,
-        sites: [],
-      });
-    }
+const getGameKey = (name: string, id?: string) => `${id}:${name.toLowerCase()}`;
 
-    return mutableAcc;
-  }, games);
+const mergeGames = (bggGames: BGGGame[], games: Game[]) => {
+  const existingGames = new Set(
+    games.map(({ name, id }) => getGameKey(name, id)),
+  );
+
+  return bggGames.reduce<Game[]>(
+    (acc, bggGame) => {
+      const key = getGameKey(bggGame.name, bggGame.id);
+
+      if (!existingGames.has(key)) {
+        existingGames.add(key);
+        acc.push({
+          ...bggGame,
+          sites: [],
+        });
+      }
+
+      return acc;
+    },
+    [...games],
+  );
+};
 
 export const getGames = async (): Promise<Game[]> => {
   const [bggGamesRanks, digitalBoardGames] = await Promise.all([
