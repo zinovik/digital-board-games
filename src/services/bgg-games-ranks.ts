@@ -1,11 +1,13 @@
 import { parseCsv } from './parseCsv';
 import { BOARDGAMES_RANKS_CSV_URL } from '../constants';
 
-export interface BGGGame {
+interface BGGGame {
   rank: number;
   name: string;
   year: string;
   id: string;
+  average: number;
+  usersRated: number;
 }
 
 let cachedGames: BGGGame[] | null = null;
@@ -30,12 +32,16 @@ async function fetchAndParseBGGGamesRanks(): Promise<BGGGame[]> {
   const nameIndex = header.indexOf('name');
   const yearIndex = header.indexOf('yearpublished');
   const idIndex = header.indexOf('id');
+  const averageIndex = header.indexOf('average');
+  const usersRatedIndex = header.indexOf('usersrated');
 
   return records.map((record) => ({
     rank: Number(record[rankIndex]),
     name: record[nameIndex],
     year: record[yearIndex],
     id: record[idIndex],
+    average: Number(record[averageIndex]),
+    usersRated: Math.round(Number(record[usersRatedIndex]) / 1000),
   }));
 }
 

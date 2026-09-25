@@ -57,14 +57,11 @@ label {
 }
 
 .rank {
-  width: 3rem;
-}
-
-.game {
-  flex-grow: 100;
-  flex-shrink: 100;
+  min-width: 2.6rem;
 }
 
 .sites {
+  flex-grow: 100;
   display: flex;
+  justify-content: flex-end;
 }

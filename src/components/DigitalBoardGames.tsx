@@ -44,21 +44,24 @@ const filterToSearchConfig = (filterState: FilterState): string | null => {
 
 export const DigitalBoardGames = () => {
   const [games, setGames] = useState([] as Game[]);
+  const [, setForceRerender] = useState(0);
 
   useEffect(() => {
     getGames().then(setGames);
   }, []);
 
   const handleSetFilter = (filter: FilterState) => {
+    const searchConfig = filterToSearchConfig(filter);
+
     window.history.pushState(
       {},
       '',
-      filterToSearchConfig(filter) !== null
-        ? `${SEARCH_CONFIG_NAME}${filterToSearchConfig(filter)}`
+      searchConfig !== null
+        ? `${SEARCH_CONFIG_NAME}${searchConfig}`
         : '/digital-board-games',
     );
 
-    setGames([...games]); // force reload
+    setForceRerender((x) => x + 1);
   };
 
   const filter = searchConfigToFilter(

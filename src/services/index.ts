@@ -1,20 +1,8 @@
-import { BGGGame, getBGGGamesRanks } from './bgg-games-ranks';
+import { getBGGGamesRanks } from './bgg-games-ranks';
 import { getDigitalBoardGames, NAME_ID_SEPARATOR } from './digital-board-games';
 import { Game } from '../types/game';
 import { siteConfigs, SiteTitle } from './site-configs';
 import { FilterState } from '../types/filter-state';
-
-const getNameAndId = (fullName: string): [string, string | undefined] => {
-  const [name, id] = fullName.split(NAME_ID_SEPARATOR);
-
-  return name ? [name, id] : ['', undefined];
-};
-
-const isSameGame = (
-  bggGame: { id?: string; name: string },
-  name: string,
-  id: string | undefined,
-) => (id ? bggGame.id === id : bggGame.name === name);
 
 const sortByRank = (
   { rank: rank1, name: name1 }: { rank: number; name: string },
@@ -27,53 +15,44 @@ const sortByRank = (
   return rank1 - rank2;
 };
 
-const getGameKey = (name: string, id?: string) => `${id}:${name.toLowerCase()}`;
-
-const mergeGames = (bggGames: BGGGame[], games: Game[]) => {
-  const existingGames = new Set(
-    games.map(({ name, id }) => getGameKey(name, id)),
-  );
-
-  return bggGames.reduce<Game[]>(
-    (acc, bggGame) => {
-      const key = getGameKey(bggGame.name, bggGame.id);
-
-      if (!existingGames.has(key)) {
-        existingGames.add(key);
-        acc.push({
-          ...bggGame,
-          sites: [],
-        });
-      }
-
-      return acc;
-    },
-    [...games],
-  );
-};
-
 export const getGames = async (): Promise<Game[]> => {
   const [bggGamesRanks, digitalBoardGames] = await Promise.all([
     getBGGGamesRanks(),
     getDigitalBoardGames(),
   ]);
 
-  const digitalGames: Game[] = Object.entries(digitalBoardGames).map(
-    ([key, sites]) => {
-      const [name, id] = getNameAndId(key);
+  const usedDigitalBoardGames = new Set();
 
-      const bggGame = bggGamesRanks.find((bggGame) =>
-        isSameGame(bggGame, name, id),
+  const games = bggGamesRanks.map((bggGame) => {
+    const idKey = `${bggGame.name}${NAME_ID_SEPARATOR}${bggGame.id}`;
+
+    const digitalBoardGame =
+      digitalBoardGames[idKey] ?? digitalBoardGames[bggGame.name];
+
+    if (digitalBoardGame) {
+      usedDigitalBoardGames.add(
+        digitalBoardGames[idKey] ? idKey : bggGame.name,
       );
+    }
 
-      return {
-        ...(bggGame ? bggGame : { rank: 0, name, id }),
-        sites,
-      };
-    },
+    return {
+      ...bggGame,
+      sites: digitalBoardGame ?? [],
+    };
+  });
+
+  const unusedDigitalGames = Object.keys(digitalBoardGames).filter(
+    (key) => !usedDigitalBoardGames.has(key),
   );
 
-  return mergeGames(bggGamesRanks, digitalGames).sort(sortByRank);
+  return [
+    ...games,
+    ...unusedDigitalGames.map((key) => ({
+      name: key.split(NAME_ID_SEPARATOR)[0],
+      sites: digitalBoardGames[key],
+      rank: 0,
+    })),
+  ].sort(sortByRank);
 };
 
 export const getSiteData = (
@@ -93,18 +72,21 @@ export const getSiteData = (
   };
 };
 
-export const filterGames = (games: Game[], filter: FilterState) => {
-  const mutableFilteredGames: Game[] = [];
+export const filterGames = (games: Game[], filter: FilterState): Game[] => {
+  const result: Game[] = [];
 
-  games.forEach((game) => {
-    const filteredGameSites = game.sites.filter(
+  for (const game of games) {
+    const sites = game.sites.filter(
       (site) => filter.sites[getSiteData(site).title],
     );
 
-    mutableFilteredGames.push({ ...game, sites: filteredGameSites });
-  });
+    if (filter.isAlsoShowGamesWithoutImplementation || sites.length > 0) {
+      result.push({
+        ...game,
+        sites,
+      });
+    }
+  }
 
-  return filter.isAlsoShowGamesWithoutImplementation
-    ? mutableFilteredGames
-    : mutableFilteredGames.filter((game) => game.sites.length > 0);
+  return result;
 };

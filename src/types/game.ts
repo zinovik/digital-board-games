@@ -4,4 +4,6 @@ export interface Game {
   year?: string;
   id?: string;
   sites: string[];
+  average?: number;
+  usersRated?: number;
 }

@@ -30,10 +30,13 @@ export const parseCsv = (text: string, maxRows?: number): string[][] => {
       }
       row.push(field);
       field = '';
-      rows.push(row);
-      if (maxRows && rows.length > maxRows) {
+
+      if (maxRows && rows.length >= maxRows) {
         break;
       }
+
+      rows.push(row);
+
       row = [];
       continue;
     }

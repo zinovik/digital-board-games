@@ -49,7 +49,7 @@ export const Filter = ({ filter, setFilter }: Props) => {
     });
 
   return (
-    <div style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem' }}>
+    <div style={{ paddingTop: '0.5rem' }}>
       <div className="line">
         <input
           type="checkbox"
