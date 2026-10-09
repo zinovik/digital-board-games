@@ -1,11 +1,9 @@
 import boargamearenaIcon from '../icons/boargamearena.jpg';
 import yucataIcon from '../icons/yucata.jpg';
-import boardgamecoreIcon from '../icons/boardgamecore.png';
 import boardgamersspaceIcon from '../icons/boardgamersspace.png';
 import mattleIcon from '../icons/mattle.png';
 import brettspielweltIcon from '../icons/brettspielwelt.jpg';
 import boardspaceIcon from '../icons/boardspace.jpg';
-import sovrantiIcon from '../icons/sovranti.avif';
 import tabletopiaIcon from '../icons/tabletopia.png';
 import androidIcon from '../icons/android.svg';
 import iosIcon from '../icons/ios.png';
@@ -32,12 +30,6 @@ export const siteConfigs = [
     id: 'yu',
   },
   {
-    title: 'Board Game Core',
-    urlParts: ['boardgamecore.net'],
-    icon: boardgamecoreIcon,
-    id: 'bc',
-  },
-  {
     title: 'Board Games Space',
     urlParts: ['boardgamers.space'],
     icon: boardgamersspaceIcon,
@@ -60,12 +52,6 @@ export const siteConfigs = [
     urlParts: ['mattle.online'],
     icon: mattleIcon,
     id: 'ma',
-  },
-  {
-    title: 'Sovranti',
-    urlParts: ['sovranti.com'],
-    icon: sovrantiIcon,
-    id: 'so',
   },
   {
     title: 'Tabletopia',
